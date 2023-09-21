@@ -4,6 +4,7 @@ import GlobalStyle from "./GeneralStyle";
 import styled from "styled-components";
 import Monitor from "./components/Monitor";
 import RamMonitor from "./components/RamMonitor";
+import DiskList from "./components/DiskList";
 
 const Dashboard = styled.main`
   display: flex;
@@ -25,10 +26,12 @@ function App() {
         </section>
         <section>
           <h2>RAM</h2>
-          <h2>RAM</h2>
           <RamMonitor />
         </section>
-        {/* Ajoutez d'autres sections pour les disques, le RAID, etc. */}
+        <section>
+          <h2>Disks</h2>
+          <DiskList />
+        </section>
       </Dashboard>
     </div>
   );
