@@ -1,8 +1,9 @@
 // src/App.js
-import React from 'react';
-import GlobalStyle from './GeneralStyle';
-import styled from 'styled-components';
-import Monitor from './components/Monitor';
+import React from "react";
+import GlobalStyle from "./GeneralStyle";
+import styled from "styled-components";
+import Monitor from "./components/Monitor";
+import RamMonitor from "./components/RamMonitor";
 
 const Dashboard = styled.main`
   display: flex;
@@ -24,7 +25,8 @@ function App() {
         </section>
         <section>
           <h2>RAM</h2>
-          {/* Ici, ajoutez le composant ou les informations relatives à la RAM */}
+          <h2>RAM</h2>
+          <RamMonitor />
         </section>
         {/* Ajoutez d'autres sections pour les disques, le RAID, etc. */}
       </Dashboard>
