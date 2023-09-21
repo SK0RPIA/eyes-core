@@ -1,11 +1,12 @@
 // src/components/RamMonitor.js
 import React, { useState, useEffect } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components"; // Correction ici
 
 function RamMonitor() {
   const [ramData, setRamData] = useState({ total: 0, utilized: 0 });
+
   const RamMonitorContainer = styled.div`
-    width: 100%;
+    width: max-widght;
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(18, 18, 18, 0.75);
@@ -28,27 +29,25 @@ function RamMonitor() {
     top: 0;
     left: 0;
   `;
+
   useEffect(() => {
     const fetchRamData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/ram"); // Ajustez l'URL selon votre configuration API
+        const response = await fetch("http://127.0.0.1:8000/ram");
         const data = await response.json();
         setRamData(data);
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de la RAM:",
-          error
-        );
+        console.error("Erreur lors de la récupération des données de la RAM:", error);
       }
     };
 
     fetchRamData();
-    const intervalId = setInterval(fetchRamData, 5000); // Mise à jour toutes les 5 secondes
+    const intervalId = setInterval(fetchRamData, 1000); // Mise à jour toutes les 5 secondes
 
     return () => clearInterval(intervalId); // Nettoyage à la désinscription
   }, []);
 
-  const percentage = (ramData.utilized / 1024 / (ramData.total / 1024)) * 100;
+  const percentage = (ramData.utilized / ramData.total) * 100;
 
   return (
     <RamMonitorContainer>
