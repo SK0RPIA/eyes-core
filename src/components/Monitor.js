@@ -19,7 +19,7 @@ function Monitor() {
   useEffect(() => {
     const fetchCpuPercentage = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/cpu/percentage"); // Ajustez l'URL selon votre configuration API
+        const response = await fetch(`${process.env.API_URL}/cpu/percentage`); 
         const data = await response.json();
         setPercentage(data.total_usage);
       } catch (error) {
@@ -31,12 +31,12 @@ function Monitor() {
     };
 
     fetchCpuPercentage();
-    const intervalId = setInterval(fetchCpuPercentage, 1000); // Mise à jour toutes les 5 secondes
+    const intervalId = setInterval(fetchCpuPercentage, 1000);
 
-    return () => clearInterval(intervalId); // Nettoyage à la désinscription
+    return () => clearInterval(intervalId);n
   }, []);
 
-  let color = "#0BF"; // Couleur par défaut (bleu néon)
+  let color = "#0BF"; 
   if (percentage > 80) {
     color = "red";
   } else if (percentage > 50) {

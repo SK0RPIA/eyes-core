@@ -5,6 +5,7 @@ import styled from "styled-components"; // Correction ici
 function RamMonitor() {
   const [ramData, setRamData] = useState({ total: 0, utilized: 0 });
 
+  
   const RamMonitorContainer = styled.div`
     width: max-widght;
     padding: 10px;
@@ -33,7 +34,7 @@ function RamMonitor() {
   useEffect(() => {
     const fetchRamData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/ram");
+        const response = await fetch(`${process.env.API_URL}/ram`);
         const data = await response.json();
         setRamData(data);
       } catch (error) {
@@ -42,9 +43,9 @@ function RamMonitor() {
     };
 
     fetchRamData();
-    const intervalId = setInterval(fetchRamData, 1000); // Mise à jour toutes les 5 secondes
+    const intervalId = setInterval(fetchRamData, 1000); 
 
-    return () => clearInterval(intervalId); // Nettoyage à la désinscription
+    return () => clearInterval(intervalId); 
   }, []);
 
   const percentage = (ramData.utilized / ramData.total) * 100;

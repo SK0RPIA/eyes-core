@@ -15,7 +15,7 @@ function DiskList() {
   useEffect(() => {
     const fetchDiskData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/disk"); // Ajustez l'URL selon votre configuration API
+        const response = await fetch(`${process.env.API_URL}/disk`); 
         const data = await response.json();
         setDisks(data);
       } catch (error) {
@@ -27,9 +27,9 @@ function DiskList() {
     };
 
     fetchDiskData();
-    const intervalId = setInterval(fetchDiskData, 1000); // Mise à jour toutes les 1 seconde
+    const intervalId = setInterval(fetchDiskData, 1000); 
 
-    return () => clearInterval(intervalId); // Nettoyage à la désinscription
+    return () => clearInterval(intervalId); 
   }, []);
 
   return (
