@@ -42,8 +42,8 @@ function Disk({ disk }) {
   `;
 
   const displayDiskOrPartition = (data) => {
-    const utilizedGB = (data.storage_used / 1024 ** 3).toFixed(2);
-    const totalGB = (data.storage_total / 1024 ** 3).toFixed(2);
+    const utilizedGB = (data.storage_used / 1024 / 1024).toFixed(2);
+    const totalGB = (data.storage_total / 1024 / 1024).toFixed(2);
 
     return (
       <>
@@ -58,7 +58,7 @@ function Disk({ disk }) {
           />
         </DiskUsageBar>
         <p>
-          {utilizedGB} GB / {totalGB} GB
+          {utilizedGB} Go / {totalGB} Go
         </p>
       </>
     );

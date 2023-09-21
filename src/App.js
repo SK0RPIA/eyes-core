@@ -1,4 +1,3 @@
-require('dotenv').config();
 import React from "react";
 import GlobalStyle from "./GeneralStyle";
 import styled from "styled-components";

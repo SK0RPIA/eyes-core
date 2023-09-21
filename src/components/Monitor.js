@@ -19,7 +19,7 @@ function Monitor() {
   useEffect(() => {
     const fetchCpuPercentage = async () => {
       try {
-        const response = await fetch(`${process.env.API_URL}/cpu/percentage`); 
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/cpu/percentage`); 
         const data = await response.json();
         setPercentage(data.total_usage);
       } catch (error) {
@@ -31,9 +31,9 @@ function Monitor() {
     };
 
     fetchCpuPercentage();
-    const intervalId = setInterval(fetchCpuPercentage, 1000);
+    const intervalId = setInterval(fetchCpuPercentage, parseInt(process.env.REACT_APP_COOLDOWN));
 
-    return () => clearInterval(intervalId);n
+    return () => clearInterval(intervalId);
   }, []);
 
   let color = "#0BF"; 

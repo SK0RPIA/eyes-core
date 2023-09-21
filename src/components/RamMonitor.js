@@ -5,7 +5,6 @@ import styled from "styled-components"; // Correction ici
 function RamMonitor() {
   const [ramData, setRamData] = useState({ total: 0, utilized: 0 });
 
-  
   const RamMonitorContainer = styled.div`
     width: max-widght;
     padding: 10px;
@@ -34,18 +33,24 @@ function RamMonitor() {
   useEffect(() => {
     const fetchRamData = async () => {
       try {
-        const response = await fetch(`${process.env.API_URL}/ram`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/ram`);
         const data = await response.json();
         setRamData(data);
       } catch (error) {
-        console.error("Erreur lors de la récupération des données de la RAM:", error);
+        console.error(
+          "Erreur lors de la récupération des données de la RAM:",
+          error
+        );
       }
     };
 
     fetchRamData();
-    const intervalId = setInterval(fetchRamData, 1000); 
+    const intervalId = setInterval(
+      fetchRamData,
+      parseInt(process.env.REACT_APP_COOLDOWN)
+    );
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   const percentage = (ramData.utilized / ramData.total) * 100;
@@ -57,7 +62,8 @@ function RamMonitor() {
         <ProgressBar percentage={percentage} />
       </ProgressBarContainer>
       <p>
-        {Math.round(ramData.utilized / 1024)} MB / {Math.round(ramData.total / 1024)} MB
+        {Math.round(ramData.utilized / 1024 / 1024)} Go /{" "}
+        {Math.round(ramData.total / 1024 / 1024)} Go
       </p>
     </RamMonitorContainer>
   );

@@ -15,7 +15,7 @@ function DiskList() {
   useEffect(() => {
     const fetchDiskData = async () => {
       try {
-        const response = await fetch(`${process.env.API_URL}/disk`); 
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/disk`); 
         const data = await response.json();
         setDisks(data);
       } catch (error) {
@@ -27,7 +27,7 @@ function DiskList() {
     };
 
     fetchDiskData();
-    const intervalId = setInterval(fetchDiskData, 1000); 
+    const intervalId = setInterval(fetchDiskData, parseInt(process.env.REACT_APP_COOLDOWN)); 
 
     return () => clearInterval(intervalId); 
   }, []);
